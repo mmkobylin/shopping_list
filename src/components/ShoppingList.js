@@ -16,7 +16,14 @@ export const ShoppingList = () => {
     const removeItem = id => {
         // filter the item out 
         setList( list.filter ( item => item.id === id ? !item.id : item ) )
-        console.log(id); 
+    }
+
+    // function changing the 'purchased' value 
+    const crossItem = id => {
+        setList(list.map ( 
+            item => item.id === id ? { ...item, purchased: !item.purchased } : item ) ) 
+
+        console.log(id)
     }
 
   return (
@@ -27,7 +34,7 @@ export const ShoppingList = () => {
         { list.map( ( item, index ) => 
             <Item item = { item } key = { index } 
             removeItem = { removeItem } 
-
+            crossItem = { crossItem }
             />
         )}
     </>

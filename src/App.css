@@ -4,9 +4,9 @@ body {
   padding-left: 20%; 
 }
 
-
 .completed {
   color: gray;
+  opacity: 0.5;
   text-decoration: line-through;
 }
 

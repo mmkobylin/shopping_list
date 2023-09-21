@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
-import { Button } from 'react-bootstrap';
-import { Form } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 
 // addItem to shopping List 
 export const Input = ( { addItem } ) => {
@@ -18,16 +20,24 @@ export const Input = ( { addItem } ) => {
 
   return (
     <>
-        <Form className="mb-3"  onSubmit = { handleSubmit } >
-            <Form.Control
-                type = "text"
-                placeholder="Add item"
-                aria-label="Item"
-                aria-describedby="basic-addon1"
-                value = { value }
-                onChange = { (e) => setValue( e.target.value ) } 
-            />
-            <Button className="mt-5" type="submit" variant='success'>Add</Button>
+        <Form onSubmit = { handleSubmit } >
+            <Row className="align-items-center pb-5">
+                <Col>
+                    <Form.Control
+                        type = "text"
+                        placeholder="Add item"
+                        aria-label="Item"
+                        aria-describedby="basic-addon1"
+                        value = { value }
+                        onChange = { (e) => setValue( e.target.value ) } 
+                    />
+                </Col>
+                <Col xs="auto">
+                    <Button type="submit" className="" variant='success'>
+                        Add
+                    </Button>
+                </Col>
+            </Row>
         </Form>
     </>
   )

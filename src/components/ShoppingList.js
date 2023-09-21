@@ -11,14 +11,13 @@ export const ShoppingList = () => {
     const addItem = item => {
         // item with a random id 
         setList( [ ...list, { id: uuidv4(), name: item, purchased: false, price: 1 } ] )
-            }
+    }
 
   return (
     <>
         <Input addItem = { addItem } />
 
         {/* map to show items to buy */}
-        
         { list.map( ( item, index ) => 
             <Item item = { item } key = { index }    
             />

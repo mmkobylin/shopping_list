@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 
 // addItem to shopping List 
-export const Input = ( {addItem } ) => {
+export const Input = ( { addItem } ) => {
 
     const [ value, setValue ] = useState("")
 

@@ -3,26 +3,27 @@ import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 
 // addItem to shopping List 
-export const Input = ( ) => {
 
-    // empty string for user value
-    const [ value, setValue ] = useState('')
+export const Input = ( {addItem } ) => {
 
-    const handleSumbit = e => {
+    const [ value, setValue ] = useState("")
 
-        // stop reloading 
+    const handleSubmit = e => { 
+        // stop reloading
         e.preventDefault();
-        
-        // add the value to list 
-        // addItem(value)
+        /// value 
+        console.log(value)
 
-        console.log(value); 
-        // empty value 
-        setValue('')
+        addItem(value)
+        //cleanup 
+        setValue("")
     }
+
   return (
     <>
-        <Form className="mb-3"  onSubmit = { handleSumbit } >
+
+    
+        <Form className="mb-3"  onSubmit = { handleSubmit } >
             <Form.Control
             type = "text"
             placeholder="Add item"

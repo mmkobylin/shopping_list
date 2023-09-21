@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 
 
 // the actual defaults of the item 
-export const Item = ( { item } ) => {
+export const Item = ( { item, removeItem } ) => {
 
     return (
         <Container className="bg-info border rounded mt-3">
@@ -15,7 +15,9 @@ export const Item = ( { item } ) => {
             <Col className="p-4" >{ item.name }</Col>
             <Col className="p-4"> £ { item.price }</Col>
             <Col> <FontAwesomeIcon className="p-4 icon" size='lg' icon = { faCircleCheck }  /></Col>
-            <Col> <FontAwesomeIcon className="p-4 icon" size='lg' icon = { faCircleXmark } /></Col>
+            <Col> <FontAwesomeIcon className="p-4 icon" size='lg' icon = { faCircleXmark }
+                onClick = { () => removeItem(item.id) }
+            /></Col>
         </Row>
         </Container>
     );

@@ -13,13 +13,21 @@ export const ShoppingList = () => {
         setList( [ ...list, { id: uuidv4(), name: item, purchased: false, price: 1 } ] )
     }
 
+    const removeItem = id => {
+        // filter the item out 
+        setList( list.filter ( item => item.id === id ? !item.id : item ) )
+        console.log(id); 
+    }
+
   return (
     <>
         <Input addItem = { addItem } />
 
         {/* map to show items to buy */}
         { list.map( ( item, index ) => 
-            <Item item = { item } key = { index }    
+            <Item item = { item } key = { index } 
+            removeItem = { removeItem } 
+
             />
         )}
     </>

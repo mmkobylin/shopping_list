@@ -11,7 +11,7 @@ export const ShoppingList = () => {
 
     // add item with a random id 
     const addItem = item => {
-        setList( [ ...list, { id: uuidv4(), name: item, purchased: false, price: 1 } ] )
+        setList( [ ...list, { id: uuidv4(), name: item, purchased: false, price: fetchPrice() } ] )
     }
 
     //removing the item 
@@ -23,6 +23,10 @@ export const ShoppingList = () => {
     const crossItem = id => {
         setList(list.map ( 
             item => item.id === id ? { ...item, purchased: !item.purchased } : item ) ) 
+    }
+
+    const fetchPrice = () => {
+        return ( Math.random() * 3 ).toFixed(2); 
     }
 
   return (

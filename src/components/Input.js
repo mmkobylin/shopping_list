@@ -32,8 +32,11 @@ export const Input = ( { addItem } ) => {
                     />
                 </Col>
                 <Col xs="auto">
-                    <Button type="submit" variant='success'>
-                        Add
+
+                    <Button
+                        type = "submit"
+                        disabled = { !value } 
+                        variant="success"> Add
                     </Button>
                 </Col>
             </Row>

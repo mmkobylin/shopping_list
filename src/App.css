@@ -6,6 +6,6 @@ body {
 
 .completed {
   color: gray;
-  opacity: 0.6;
+  background-color: rgb(197, 238, 224);
   text-decoration: line-through;
 }

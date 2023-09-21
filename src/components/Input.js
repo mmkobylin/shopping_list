@@ -32,7 +32,7 @@ export const Input = ( { addItem } ) => {
                     />
                 </Col>
                 <Col xs="auto">
-                    <Button type="submit" className="" variant='success'>
+                    <Button type="submit" variant='success'>
                         Add
                     </Button>
                 </Col>

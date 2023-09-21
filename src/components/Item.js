@@ -5,12 +5,11 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-// the actual defaults of the item 
 export const Item = ( { item, removeItem, crossItem } ) => {
 
     return (
         // add a conditional className that will make the image crossed: 
-        <Container className = {`bg-info border rounded mt-3 text-center ${ item.purchased ? `completed` : `` } ` } >
+        <Container className = {`bg-success border rounded mt-3 text-center fw-bold ${ item.purchased ? `completed bg-light text-dark` : `` } ` } >
             <Row>
                 <Col className="p-4" >{ item.name }</Col>
                 <Col className="p-4"> £ { item.price }</Col>

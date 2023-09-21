@@ -6,10 +6,6 @@ body {
 
 .completed {
   color: gray;
-  opacity: 0.5;
+  opacity: 0.6;
   text-decoration: line-through;
-}
-
-.icon {
-  float: right;
 }

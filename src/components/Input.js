@@ -3,7 +3,6 @@ import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 
 // addItem to shopping List 
-
 export const Input = ( {addItem } ) => {
 
     const [ value, setValue ] = useState("")
@@ -11,9 +10,7 @@ export const Input = ( {addItem } ) => {
     const handleSubmit = e => { 
         // stop reloading
         e.preventDefault();
-        /// value 
-        console.log(value)
-
+        // add to list 
         addItem(value)
         //cleanup 
         setValue("")
@@ -21,16 +18,14 @@ export const Input = ( {addItem } ) => {
 
   return (
     <>
-
-    
         <Form className="mb-3"  onSubmit = { handleSubmit } >
             <Form.Control
-            type = "text"
-            placeholder="Add item"
-            aria-label="Item"
-            aria-describedby="basic-addon1"
-            value = { value }
-            onChange = { (e) => setValue( e.target.value ) } 
+                type = "text"
+                placeholder="Add item"
+                aria-label="Item"
+                aria-describedby="basic-addon1"
+                value = { value }
+                onChange = { (e) => setValue( e.target.value ) } 
             />
             <Button className="mt-5" type="submit" variant='success'>Add</Button>
         </Form>

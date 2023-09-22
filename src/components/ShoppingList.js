@@ -4,6 +4,8 @@ import { Item } from './Item'
 import { v4 as uuidv4 } from 'uuid';
 import { FirstRow } from './FirstRow';
 import Total from './Total';
+import { Budget } from './Budget';
+import { BudgetInput } from './BudgetInput';
 
 export const ShoppingList = () => {
 
@@ -40,7 +42,8 @@ export const ShoppingList = () => {
     }, 0 )
 
   return (
-    <>
+    <>  
+        <BudgetInput/>
         <Input addItem = { addItem } />
         <FirstRow />
             {/* map to show items to buy */}
@@ -52,6 +55,7 @@ export const ShoppingList = () => {
             )}
         {/* we can do it with props I suppose */}
         <Total total = { totalPrice } /> 
+
     </>
   )
 }

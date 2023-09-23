@@ -1,21 +1,20 @@
-import React, { useState } from 'react'
-import { Input } from './Input'
-import { Item } from './Item'
+import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { FirstRow } from './FirstRow';
-import Total from './Total';
-import { Budget } from './Budget';
 import { BudgetInput } from './BudgetInput';
+import { FirstRow } from './FirstRow';
+import { Input } from './Input';
+import { Item } from './Item';
+import { Value } from './Value';
+import Row from 'react-bootstrap/Row';
 
+ 
 export const ShoppingList = () => {
 
     //array to store information 
     const [ list, setList ] = useState([])
 
-    // adding the total from the list 
-    // ok so you don't work cause you are not a primitive type. 
-    // what I can do is perhaps use a function to pass it which will return the total anyway? 
-    //const [ total, setTotal ] = useState([0])
+    // something here is changing 
+    const [ budget, setBudget ] = useState(100); 
 
     // add item with a random id 
     const addItem = item => {
@@ -33,18 +32,27 @@ export const ShoppingList = () => {
             item => item.id === id ? { ...item, purchased: !item.purchased } : item ) ) 
     }
 
-    // do we even need a state? maybe I can pass it alone? 
     //array.reduce basically reduces it down to one single value 
-
     //reduce takes two values, one is the function and second one is the starting point - here 0 
     const totalPrice = list.reduce( ( total, item ) => { 
-        return total + item.price
-    }, 0 )
+            return total + item.price
+        }, 0 
+    )
+
+    // the information isn't there - we would need the useState. 
+    const addBudget = ( { number } ) => { 
+        // updating the budget 
+        setBudget(budget = number); 
+
+        console.log('number' + number); 
+    }
 
   return (
     <>  
-        <BudgetInput/>
+        {/* that's where we are passing the function  */}
+        <BudgetInput addBudget = { addBudget } />
         <Input addItem = { addItem } />
+    
         <FirstRow />
             {/* map to show items to buy */}
             { list.map( ( item, index ) => 
@@ -53,8 +61,17 @@ export const ShoppingList = () => {
                 crossItem = { crossItem }
                 />
             )}
-        {/* we can do it with props I suppose */}
-        <Total total = { totalPrice } /> 
+
+        {/*  we can change this one for two values being passed:  */}
+        <Row className="mt-2 p-2"> 
+            <Value label = { 'Budget' } number = { budget } /> 
+
+            {/* add info that you can pass back */}
+
+            {/* idea - adding the classname if the total > budget  */}
+            <Value label = { 'Total' } number = { totalPrice } /> 
+        </Row>
+
 
     </>
   )

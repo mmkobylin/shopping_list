@@ -34,12 +34,10 @@ export const ShoppingList = () => {
             item => item.id === id ? { ...item, purchased: !item.purchased } : item ) ) 
     }
 
-    //array.reduce basically reduces it down to one single value 
-    //reduce takes two values, one is the function and second one is the starting point - here 0 
-    const totalPrice = list.reduce( ( total, item ) => { 
-            return total + item.price
-        }, 0 
-    )
+    // maybe the problem is a float? 
+    let totalPrice = list.reduce( ( previousValue, item ) => {
+        return +previousValue + +item.price;
+    }, 0);
 
     const addBudget = number => { 
         // updating the budget 
@@ -56,6 +54,7 @@ export const ShoppingList = () => {
     }
     
     const fetchPrice = () => {
+        // randomize price 
         return ( Math.random() * 3 ).toFixed(2); 
     }
 

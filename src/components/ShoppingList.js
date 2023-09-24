@@ -14,7 +14,9 @@ export const ShoppingList = () => {
     const [ list, setList ] = useState([])
 
     // something here is changing 
-    const [ budget, setBudget ] = useState(100); 
+    const [ budget, setBudget ] = useState('');
+
+    const [ spend, setOverspend ] = useState(true);  
 
     // add item with a random id 
     const addItem = item => {
@@ -39,13 +41,20 @@ export const ShoppingList = () => {
         }, 0 
     )
 
-    // the information isn't there - we would need the useState. 
-    const addBudget = ( { number } ) => { 
+    const addBudget = number => { 
         // updating the budget 
-        setBudget(budget = number); 
-
-        console.log('number' + number); 
+        setBudget( number );
     }
+
+    // now, if the total > budget, we need to run a function that adds the class to the total. 
+    // which means we probably need state again: 
+    // this needs to be called if either of the values change 
+    const checkBudget = ( total, budget ) => { 
+        if ( total > budget ) {
+            setOverspend( spend = true ); 
+        }
+    }
+    
 
   return (
     <>  
@@ -66,12 +75,11 @@ export const ShoppingList = () => {
         <Row className="mt-2 p-2"> 
             <Value label = { 'Budget' } number = { budget } /> 
 
-            {/* add info that you can pass back */}
-
             {/* idea - adding the classname if the total > budget  */}
-            <Value label = { 'Total' } number = { totalPrice } /> 
+            <Value label = { 'Total' } number = { totalPrice } spend = {
+                 spend }
+            /> 
         </Row>
-
 
     </>
   )

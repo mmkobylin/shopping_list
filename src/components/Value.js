@@ -1,11 +1,15 @@
 import React from 'react'
 import Col from 'react-bootstrap/Col'
 
-export const Value = ( { label, number } ) => {
+// i want the spend to be optional variable 
+export const Value = ( { label, number, spend = null } ) => {
 
   return (
-    <Col> 
-        <h3> { label }: £ { number } </h3>
+    <Col>
+        {/* adding addional info about the background */}
+        <h3 className = {`banner ${ spend ? "bg-danger text-light" : ""} `}>
+            { label }: £ { number }
+        </h3>
     </Col>
   )
 }

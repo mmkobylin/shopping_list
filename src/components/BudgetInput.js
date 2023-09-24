@@ -10,12 +10,8 @@ export const BudgetInput = ( { addBudget } ) => {
     const [ budget, setBudget ] = useState('');
 
     const handleSubmit = (e) => {
-
         // prevent site from reloading
         e.preventDefault();
-
-        // pass the budget 'up' 
-        addBudget( budget );
 
         setBudget(''); 
     }
@@ -34,7 +30,8 @@ export const BudgetInput = ( { addBudget } ) => {
                         </Form.Control>
                     </Col>
                     <Col sm ="2" >
-                        <Button type="submit">Submit</Button>
+                        {/* here is where the info gets passed */}
+                        <Button type="submit" onClick = { () => addBudget(budget) }>Submit</Button>
                     </Col>
                 </Form.Group>
             </Form>

@@ -34,8 +34,8 @@ export const ShoppingList = () => {
         <Input addItem = { addItem } />
         <FirstRow />
             {/* map to show items to buy */}
-            { list.map( ( item, index ) => 
-                <Item item = { item } key = { index } 
+            { list.map( ( item ) =>
+                <Item item = { item }
                 removeItem = { removeItem } 
                 crossItem = { crossItem }
                 />

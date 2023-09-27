@@ -7,10 +7,10 @@ export const FirstRow = () => {
   return (
     <Container className = "p-3 mb-2 bg-primary text-white border rounded text-center fw-bold" >
         <Row>
-            <Col className = "text-lg-left" >Product</Col>
-            <Col className = "text-lg-left" >Price</Col>
-            <Col className = "text-lg-right" >Purchased </Col>
-            <Col className = "text-lg-right" >Remove</Col>
+            <Col>Product</Col>
+            <Col>Price</Col>
+            <Col>Purchased</Col>
+            <Col>Remove</Col>
         </Row>
     </Container>
   )

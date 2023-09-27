@@ -25,8 +25,6 @@ export const Input = ( { addItem } ) => {
                     <Form.Control
                         type = "text"
                         placeholder="Add item"
-                        aria-label="Item"
-                        aria-describedby="basic-addon1"
                         value = { value }
                         onChange = { (e) => setValue( e.target.value ) } 
                     />

@@ -20,7 +20,7 @@ export const Input = ( { addItem } ) => {
   return (
     <>
         <Form onSubmit = { handleSubmit } >
-            <Row className="align-items-center pb-5">
+            <Row className="pb-5">
                 <Col>
                     <Form.Control
                         type = "text"
@@ -30,7 +30,6 @@ export const Input = ( { addItem } ) => {
                     />
                 </Col>
                 <Col xs="auto">
-
                     <Button
                         type = "submit"
                         disabled = { !value } 

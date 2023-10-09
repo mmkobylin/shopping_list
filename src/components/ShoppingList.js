@@ -62,7 +62,7 @@ export const ShoppingList = () => {
     // TO DO : CHANGE SO IT ONLY ITEM PURCHASED FALSE IS COUNTED
     // WE NEED ONE THAT COPIES LIST
     let total = list.reduce( ( previousValue, item ) => {
-        return ( +previousValue + +item.price).toFixed(2);
+        return ( +previousValue + +item.price);
     }, 0);
 
     const addBudget = number => { 
@@ -108,17 +108,16 @@ export const ShoppingList = () => {
                 />
             )}
 
+        {/* handle saving - so the render changes only if the items are changed: */}
+        <ListButtons handleSave = { handleSave } handleClean = { () => { setList([]) } } />
+        
         {/*  we can change this one for two values being passed:  */}
         <Row className="mt-2 p-2"> 
             <Value label = { 'Budget' } number = { budget } /> 
 
             {/* idea - adding the classname if the total > budget  */}
-            <Value label = { 'Total' } number = { total } spend = {
-                 spend }
-            /> 
+            <Value label = { 'Total' } number = { total } spend = { spend } /> 
         </Row>
-        {/* handle saving - so the render changes only if the items are changed: */}
-        <ListButtons handleSave = { handleSave } handleClean = { () => { setList([]) } } />
     </>
   )
 }

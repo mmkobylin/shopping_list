@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import ButtonItem from './ButtonItem';
+
 
 export const BudgetInput = ( { addBudget } ) => {
 
     // perhaps have set up- budget 
     const [ budget, setBudget ] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = e => {
         // prevent site from reloading
         e.preventDefault();
 
-        setBudget(''); 
+        addBudget(budget);
+
+        setBudget('');
     }
 
   return (
     <>
         <Container>
-            <Form onSubmit = { handleSubmit } >
+            <Form >
                 <Form.Group as = { Row } className="mb-3">
                     <Form.Label column sm="2">Budget</Form.Label>
                     <Col sm="8">
@@ -30,8 +34,9 @@ export const BudgetInput = ( { addBudget } ) => {
                         </Form.Control>
                     </Col>
                     <Col sm ="2" >
-                        {/* here is where the info gets passed */}
-                        <Button type="submit" onClick = { () => addBudget(budget) }>Submit</Button>
+                        {/* here is where the info gets passed */}                        
+                        <ButtonItem handleFunction = {  handleSubmit } label = { 'Submit' } theme = { 'warning' } disabled = { !budget } 
+ /> 
                     </Col>
                 </Form.Group>
             </Form>

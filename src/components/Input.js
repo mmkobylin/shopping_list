@@ -34,7 +34,7 @@ export const Input = ( { addItem } ) => {
                     <ButtonItem
                         handleFunction = {  handleSubmit } 
                         theme = { 'success' } 
-                        command = { 'Add' }
+                        label = { 'Add' }
                         disabled = { !value } 
                     />
                 </Col>

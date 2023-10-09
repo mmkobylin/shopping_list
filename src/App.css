@@ -9,3 +9,8 @@ body {
   background-color: rgb(197, 238, 224);
   text-decoration: line-through;
 }
+
+.btncontainer {
+  display: flex;
+  justify-content: space-between;
+}

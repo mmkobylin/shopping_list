@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import { ButtonItem } from './ButtonItem';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
@@ -30,11 +31,12 @@ export const Input = ( { addItem } ) => {
                     />
                 </Col>
                 <Col xs="auto">
-                    <Button
-                        type = "submit"
+                    <ButtonItem
+                        handleFunction = {  handleSubmit } 
+                        theme = { 'success' } 
+                        command = { 'Add' }
                         disabled = { !value } 
-                        variant="success"> Add
-                    </Button>
+                    />
                 </Col>
             </Row>
         </Form>

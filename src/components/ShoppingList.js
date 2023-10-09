@@ -3,6 +3,7 @@ import { Input } from './Input'
 import { Item } from './Item'
 import { v4 as uuidv4 } from 'uuid';
 import { FirstRow } from './FirstRow';
+import ListButtons from './ListButtons';
 
 // what do we need? We need the data to be saved here: 
 
@@ -15,7 +16,6 @@ function getItemsList() {
     }
     return JSON.parse( itemsList ); 
 }
-    
 
 export const ShoppingList = () => {
 
@@ -48,11 +48,20 @@ export const ShoppingList = () => {
         return ( Math.random() * 3 ).toFixed(2); 
     }
 
+    // trick is to make the list kept only when that info is provided: 
+    const handleSave = () => {
+        setList(getItemsList); 
+        console.log(list);
+    }
+
+    const handleClean = () => {
+        setList([]); 
+    }
+
   return (
     <>
         <Input addItem = { addItem } />
         <FirstRow />
-            <div>
             {/* map to show items to buy */}
             { list.map( ( item, key ) =>
                 <Item item = { item } key = { key }
@@ -60,7 +69,8 @@ export const ShoppingList = () => {
                 crossItem = { crossItem }
                 />
             )}
-            </div>
+
+        <ListButtons handleSave = { handleSave } handleClean = { () => { setList([]) } } />
     </>
   )
 }

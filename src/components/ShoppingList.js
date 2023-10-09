@@ -11,7 +11,9 @@ function getItemsList() {
 
     const itemsList = localStorage.getItem('item_list'); 
 
-    if (!itemsList) { 
+    const listSaved = localStorage.getItem('items_saved'); 
+
+    if (!itemsList || !listSaved) { 
         return []; 
     }
     return JSON.parse( itemsList ); 
@@ -19,8 +21,10 @@ function getItemsList() {
 
 export const ShoppingList = () => {
 
-    //array to store information 
-    const [ list, setList ] = useState(getItemsList)
+    //array to store information - based on the value of the 'saved' 
+    const [ saved, setSaved ] = useState( false ); 
+
+    const [ list, setList ] = useState(getItemsList) 
 
     // add item with a random id 
     const addItem = item => {
@@ -32,6 +36,10 @@ export const ShoppingList = () => {
         // first item is a key, second is a value 
         localStorage.setItem('item_list', JSON.stringify( list ) )
     }, [ list ] )
+
+    useEffect( () => { 
+        localStorage.setItem('items_saved', JSON.stringify( saved ) ) 
+    }, [ saved ] )
 
     //removing the item 
     const removeItem = id => {
@@ -50,12 +58,7 @@ export const ShoppingList = () => {
 
     // trick is to make the list kept only when that info is provided: 
     const handleSave = () => {
-        setList(getItemsList); 
-        console.log(list);
-    }
-
-    const handleClean = () => {
-        setList([]); 
+        setSaved(true); 
     }
 
   return (
@@ -69,7 +72,7 @@ export const ShoppingList = () => {
                 crossItem = { crossItem }
                 />
             )}
-
+        {/* handle saving - so the render changes only if the items are changed: */}
         <ListButtons handleSave = { handleSave } handleClean = { () => { setList([]) } } />
     </>
   )

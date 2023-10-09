@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import { ButtonItem } from './ButtonItem';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
@@ -20,24 +21,22 @@ export const Input = ( { addItem } ) => {
   return (
     <>
         <Form onSubmit = { handleSubmit } >
-            <Row className="align-items-center pb-5">
+            <Row className="pb-5">
                 <Col>
                     <Form.Control
                         type = "text"
                         placeholder="Add item"
-                        aria-label="Item"
-                        aria-describedby="basic-addon1"
                         value = { value }
                         onChange = { (e) => setValue( e.target.value ) } 
                     />
                 </Col>
                 <Col xs="auto">
-
-                    <Button
-                        type = "submit"
+                    <ButtonItem
+                        handleFunction = {  handleSubmit } 
+                        theme = { 'success' } 
+                        command = { 'Add' }
                         disabled = { !value } 
-                        variant="success"> Add
-                    </Button>
+                    />
                 </Col>
             </Row>
         </Form>

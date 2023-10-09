@@ -1,17 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Row from 'react-bootstrap/Row';
 import { v4 as uuidv4 } from 'uuid';
 import { BudgetInput } from './BudgetInput';
 import { FirstRow } from './FirstRow';
 import { Input } from './Input';
 import { Item } from './Item';
+import ListButtons from './ListButtons';
 import { Value } from './Value';
-import Row from 'react-bootstrap/Row';
+
+function getItemsList() { 
+
+    const itemsList = localStorage.getItem('item_list'); 
+
+    const listSaved = localStorage.getItem('items_saved'); 
+
+    if (!itemsList || !listSaved) { 
+        return []; 
+    }
+    return JSON.parse( itemsList ); 
+}
 
  
 export const ShoppingList = () => {
 
-    //array to store information 
-    const [ list, setList ] = useState([])
+    //array to store information - based on the value of the 'saved' 
+    const [ saved, setSaved ] = useState( false ); 
+
+    const [ list, setList ] = useState(getItemsList) 
 
     // something here is changing 
     const [ budget, setBudget ] = useState('');
@@ -22,10 +37,20 @@ export const ShoppingList = () => {
     const addItem = item => {
         setList( [ ...list, { id: uuidv4(), name: item, purchased: false, price: fetchPrice() } ] )
     }
+    
+    // fnction and dependency array using local storage API 
+    useEffect( () => { 
+        // first item is a key, second is a value 
+        localStorage.setItem('item_list', JSON.stringify( list ) )
+    }, [ list ] )
+
+    useEffect( () => { 
+        localStorage.setItem('items_saved', JSON.stringify( saved ) ) 
+    }, [ saved ] )
 
     //removing the item 
     const removeItem = id => {
-        setList( list.filter ( item => item.id === id ? !item.id : item ) )
+        setList( list.filter ( item => item.id === id ? !item : item ) )
     }
 
     // function changing the 'purchased' value 
@@ -64,6 +89,10 @@ export const ShoppingList = () => {
         // randomize price 
         return ( Math.random() * 5 ).toFixed(2); 
     };
+    // trick is to make the list kept only when that info is provided: 
+    const handleSave = () => {
+        setSaved(true); 
+    }
 
   return (
     <>  
@@ -72,8 +101,8 @@ export const ShoppingList = () => {
         <Input addItem = { addItem } />
         <FirstRow />
             {/* map to show items to buy */}
-            { list.map( ( item, index ) => 
-                <Item item = { item } key = { index } 
+            { list.map( ( item, key ) =>
+                <Item item = { item } key = { key }
                 removeItem = { removeItem } 
                 crossItem = { crossItem }
                 />
@@ -88,6 +117,8 @@ export const ShoppingList = () => {
                  spend }
             /> 
         </Row>
+        {/* handle saving - so the render changes only if the items are changed: */}
+        <ListButtons handleSave = { handleSave } handleClean = { () => { setList([]) } } />
     </>
   )
 }

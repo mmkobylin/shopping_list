@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import ButtonItem from './ButtonItem';
+import ButtonItem from './ButtonTemplate';
 
-function InputTemplate( { label, placeholder, type, passedFunction } ) {
+export default function InputTemplate( { label, passedFunction, placeholder, type, theme } ) {
 
     const [ value, setValue ] = useState("")
 
@@ -21,10 +21,10 @@ function InputTemplate( { label, placeholder, type, passedFunction } ) {
     <>
         <Form onSubmit = { handleSubmit } >
             <Row className="pb-5">
-                <Col xs="auto">
+                <Col >
                     <Form.Label>{ label }</Form.Label>
                 </Col>
-                <Col>
+                <Col xs= { 9 } >
                     <Form.Control
                         type = { type }
                         placeholder = { placeholder }
@@ -32,10 +32,10 @@ function InputTemplate( { label, placeholder, type, passedFunction } ) {
                         onChange = { (e) => setValue( e.target.value ) } 
                     />
                 </Col>
-                <Col xs="auto">
+                <Col xs = { 'auto' } >
                     <ButtonItem
                         handleFunction = { handleSubmit } 
-                        theme = { 'success' } 
+                        theme = { theme } 
                         label = { label }
                         disabled = { !value } 
                     />
@@ -46,4 +46,6 @@ function InputTemplate( { label, placeholder, type, passedFunction } ) {
   )
 }
 
-export default InputTemplate
+InputTemplate.defaultProps = { 
+    theme: 'success'
+}

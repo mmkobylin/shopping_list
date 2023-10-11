@@ -7,11 +7,9 @@ export const Value = ( { label, number, spend = null} ) => {
   return (
     <Col>
         {/* adding addional info about the background */}
-        <h3 className = {` p-4 border text-center rounded ${ spend ? "bg-danger text-light" : ""} `}
-          onLoa
-        >
+        <h4 className = {` p-2 border text-center rounded bg-info ${ spend ? "bg-danger text-light" : ""} `} >
             { label }: £ { number }
-        </h3>
+        </h4>
     </Col>
   )
 }

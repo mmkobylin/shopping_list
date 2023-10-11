@@ -7,8 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { FirstRow } from './FirstRow';
 import InputTemplate from './InputTemplate';
 import { Item } from './Item';
-import ListButtons from './ListButtons';
 import { Value } from './Value';
+import { ButtonItem } from './ButtonTemplate';
 
 function getItemsList() { 
 
@@ -34,7 +34,7 @@ export const ShoppingList = () => {
     const [ budget, setBudget ] = useState('');
 
     const addBudget = number => { 
-        // updating the budget, while moving the info
+        // updating the budget, while moving the 0
         setBudget( parseInt( number, 10 ) );
     }
 
@@ -83,8 +83,9 @@ export const ShoppingList = () => {
 
   return (
     <>
-        {/* i will need form validation for the budget */}
-        <InputTemplate label = { 'Budget' } type = { 'number' } placeholder = { 'Enter number' } passedFunction = { addBudget } /> 
+        <InputTemplate label = { 'Budget' } type = { 'number' } placeholder = { 'Enter number' } passedFunction = { addBudget } 
+        theme = { 'warning' } 
+        /> 
         <InputTemplate label = { 'Add' } type = { 'text' } placeholder = { 'Item' } passedFunction = { addItem } /> 
 
         <FirstRow />
@@ -96,14 +97,16 @@ export const ShoppingList = () => {
                 />
             )}
 
-        {/* handle saving - so the render changes only if the items are changed: */}
-        <ListButtons handleSave = { handleSave } handleClean = { () => { setList([]) } } />
-
         {/*  we can change this one for two values being passed:  */}
         <Row className="mt-2 p-2"> 
             <Value label = { 'Budget' } number = { budget } /> 
             <Value label = { 'Total' } number = { total } spend = { total > budget } /> 
         </Row>
+
+        <div className="btncontainer p-2 m-2" > 
+            <ButtonItem handleFunction = { handleSave } label = { 'Save' } theme = { 'info' } /> 
+            <ButtonItem handleFunction = {  () => { setList([]) } } label = { 'Clean' } theme = { 'danger' } /> 
+        </div>
     </>
   )
 }

@@ -1,3 +1,6 @@
+// things to do: 
+// FIX THE OVERUSING OF THE CODE
+
 import React, { useEffect, useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,23 +10,19 @@ import { Item } from './Item';
 import ListButtons from './ListButtons';
 import { Value } from './Value';
 
-
-// checking if the list should been saved 
 function getItemsList() { 
 
     // getting info from useEffect - sessionStorage is affecting only THAT SESSION 
-
     const itemsList = sessionStorage.getItem('item_list'); 
     const listSaved = sessionStorage.getItem('items_saved'); 
 
     if (!itemsList || !listSaved) { 
         return []; 
     }
-    // 
+
     return JSON.parse( itemsList ); 
 }
 
- 
 export const ShoppingList = () => {
 
     //array to store information - based on the value of the 'saved' 
@@ -34,7 +33,17 @@ export const ShoppingList = () => {
     // something here is changing 
     const [ budget, setBudget ] = useState('');
 
-    const [ spend, setOverspend ] = useState(false);  
+    const addBudget = number => { 
+        // updating the budget, while moving the info
+        setBudget( parseInt( number, 10 ) );
+    }
+
+    // filter for active items 
+    const activeList = list.filter( item => item.purchased === true ? !item : item ); 
+
+    const total = activeList.reduce( ( previousValue, item ) => {
+        return ( +previousValue + +item.price).toFixed(2)
+    }, 0);
 
     // add item with a random id 
     const addItem = item => {
@@ -47,7 +56,7 @@ export const ShoppingList = () => {
         sessionStorage.setItem('item_list', JSON.stringify( list ) )
     }, [ list ] )
 
-    useEffect( () => { 
+    useEffect( () => {
         sessionStorage.setItem('items_saved', JSON.stringify( saved ) ) 
     }, [ saved ] )
 
@@ -61,32 +70,6 @@ export const ShoppingList = () => {
         setList(list.map ( 
             item => item.id === id ? { ...item, purchased: !item.purchased } : item ) ) 
     }
-
-    // TO DO : CHANGE SO IT ONLY ITEM PURCHASED FALSE IS COUNTED
-    // WE NEED ONE THAT COPIES LIST
-    let total = list.reduce( ( previousValue, item ) => {
-        return ( +previousValue + +item.price);
-    }, 0);
-
-    const addBudget = number => { 
-        // updating the budget 
-        setBudget( number );
-
-        checkBudget( total, number )
-    }
-
-    // now, if the total > budget, we need to run a function that adds the class to the total. 
-    // which means we probably need state again: 
-    // this needs to be called if either of the values change 
-    const checkBudget = ( total, budget ) => { 
-
-        // changing the spend value 
-        if ( total > budget ) {
-            setOverspend( true ); 
-        } else (
-            setOverspend( false )
-        )
-    }
     
     const fetchPrice = () => {
         // randomize price 
@@ -95,12 +78,13 @@ export const ShoppingList = () => {
     // trick is to make the list kept only when that info is provided: 
     const handleSave = () => {
         setSaved(true); 
+        console.log('saved' + saved)
     }
 
   return (
     <>
-        
-        <InputTemplate label = { 'Budget' } type = { 'number' } placeholder = { 'Budget' } passedFunction = { addBudget } /> 
+        {/* i will need form validation for the budget */}
+        <InputTemplate label = { 'Budget' } type = { 'number' } placeholder = { 'Enter number' } passedFunction = { addBudget } /> 
         <InputTemplate label = { 'Add' } type = { 'text' } placeholder = { 'Item' } passedFunction = { addItem } /> 
 
         <FirstRow />
@@ -118,9 +102,7 @@ export const ShoppingList = () => {
         {/*  we can change this one for two values being passed:  */}
         <Row className="mt-2 p-2"> 
             <Value label = { 'Budget' } number = { budget } /> 
-
-            {/* idea - adding the classname if the total > budget  */}
-            <Value label = { 'Total' } number = { total } spend = { spend } /> 
+            <Value label = { 'Total' } number = { total } spend = { total > budget } /> 
         </Row>
     </>
   )

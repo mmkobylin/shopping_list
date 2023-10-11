@@ -21,6 +21,9 @@ function InputTemplate( { label, placeholder, type, passedFunction } ) {
     <>
         <Form onSubmit = { handleSubmit } >
             <Row className="pb-5">
+                <Col xs="auto">
+                    <Form.Label>{ label }</Form.Label>
+                </Col>
                 <Col>
                     <Form.Control
                         type = { type }

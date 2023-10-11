@@ -1,7 +1,7 @@
 import React from 'react';
 import { ButtonItem } from './ButtonItem';
 
-function ListButtons( { handleSave, handleClean } ) {
+export default function ListButtons( { handleSave, handleClean } ) {
   return (
         <div className="btncontainer p-2 m-2" > 
             <ButtonItem handleFunction = { handleSave } label = { 'Save' } theme = { 'info' } /> 
@@ -9,5 +9,3 @@ function ListButtons( { handleSave, handleClean } ) {
         </div>
   )
 }
-
-export default ListButtons

@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import { v4 as uuidv4 } from 'uuid';
-import { BudgetInput } from './BudgetInput';
 import { FirstRow } from './FirstRow';
-import { Input } from './Input';
+import InputTemplate from './InputTemplate';
 import { Item } from './Item';
 import ListButtons from './ListButtons';
 import { Value } from './Value';
 
+
+// checking if the list should been saved 
 function getItemsList() { 
 
-    const itemsList = localStorage.getItem('item_list'); 
+    // getting info from useEffect - sessionStorage is affecting only THAT SESSION 
 
-    const listSaved = localStorage.getItem('items_saved'); 
+    const itemsList = sessionStorage.getItem('item_list'); 
+    const listSaved = sessionStorage.getItem('items_saved'); 
 
     if (!itemsList || !listSaved) { 
         return []; 
     }
+    // 
     return JSON.parse( itemsList ); 
 }
 
@@ -41,11 +44,11 @@ export const ShoppingList = () => {
     // fnction and dependency array using local storage API 
     useEffect( () => { 
         // first item is a key, second is a value 
-        localStorage.setItem('item_list', JSON.stringify( list ) )
+        sessionStorage.setItem('item_list', JSON.stringify( list ) )
     }, [ list ] )
 
     useEffect( () => { 
-        localStorage.setItem('items_saved', JSON.stringify( saved ) ) 
+        sessionStorage.setItem('items_saved', JSON.stringify( saved ) ) 
     }, [ saved ] )
 
     //removing the item 
@@ -95,10 +98,11 @@ export const ShoppingList = () => {
     }
 
   return (
-    <>  
-        {/* that's where we are passing the function  */}
-        <BudgetInput addBudget = { addBudget } />
-        <Input addItem = { addItem } />
+    <>
+        
+        <InputTemplate label = { 'Budget' } type = { 'number' } placeholder = { 'Budget' } passedFunction = { addBudget } /> 
+        <InputTemplate label = { 'Add' } type = { 'text' } placeholder = { 'Item' } passedFunction = { addItem } /> 
+
         <FirstRow />
             {/* map to show items to buy */}
             { list.map( ( item, key ) =>
@@ -110,7 +114,7 @@ export const ShoppingList = () => {
 
         {/* handle saving - so the render changes only if the items are changed: */}
         <ListButtons handleSave = { handleSave } handleClean = { () => { setList([]) } } />
-        
+
         {/*  we can change this one for two values being passed:  */}
         <Row className="mt-2 p-2"> 
             <Value label = { 'Budget' } number = { budget } /> 

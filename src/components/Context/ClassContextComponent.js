@@ -6,9 +6,9 @@ export default class ClassContextComponent extends Component {
   themeStyles(dark) {
 
     return {
-      backgroundColor: dark ? `#333` : `#CCC`,
-      color: dark ? `#CCC` : `#333`,
-      padding: `2rem`
+      backgroundColor: dark ? '#333' : '#CCC',
+      color: dark ? '#CCC' : '#333',
+      padding: '2rem'
     }
   }
   render() {

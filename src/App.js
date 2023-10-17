@@ -12,6 +12,14 @@ export const ThemeContext = React.createContext();
 
 function App() {
 
+  const [ darkTheme, setDarkTheme ] = useState(true); 
+
+  function toggleTheme () {
+    setDarkTheme( prevTheme => !prevTheme ); 
+
+    console.log(darkTheme)
+  }
+
   return (
 
     <BrowserRouter>

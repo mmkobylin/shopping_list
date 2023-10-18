@@ -9,12 +9,14 @@ import InputTemplate from './InputTemplate';
 import { Item } from './Item';
 import { Value } from './Value';
 import { ButtonItem } from './ButtonTemplate';
+import useSessionStorage, { getSavedValue } from './useSessionStorage';
 
 function getItemsList() { 
 
-    // getting info from useEffect - sessionStorage is affecting only THAT SESSION 
-    const itemsList = sessionStorage.getItem('item_list'); 
-    const listSaved = sessionStorage.getItem('items_saved'); 
+    // used to get info from useEffect
+    // now we will use the getSavedValue
+    const itemsList = getSavedValue('item_list'); 
+    const listSaved = getSavedValue('items_saved'); 
 
     if (!itemsList || !listSaved) { 
         return []; 

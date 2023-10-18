@@ -5,16 +5,16 @@ import React, { useContext, useState } from 'react';
 const ThemeContext = React.createContext()
 const ThemeUpdateContext = React.createContext()
 
-// creating custom hook
+// creating custom hook - easy access
 export function useTheme() {
     return useContext(ThemeContext)
 }
-
+// 
 export function useThemeUpdate() {
     return useContext(ThemeUpdateContext)
 }
 
-// giving access 
+// giving access - and one class 
 export default function ThemeProvider( { children } ) {
 
     const [ darkTheme, setDarkTheme ] = useState(true); 

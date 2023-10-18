@@ -12,14 +12,6 @@ export const ThemeContext = React.createContext();
 
 function App() {
 
-  const [ darkTheme, setDarkTheme ] = useState(true); 
-
-  function toggleTheme () {
-    setDarkTheme( prevTheme => !prevTheme ); 
-
-    console.log(darkTheme)
-  }
-
   return (
 
     <BrowserRouter>
@@ -29,11 +21,9 @@ function App() {
         <Route path="/context" element ={
           <>
           {/* accessible to all */}
-            <ThemeProvider value = { darkTheme } >
-              <Button onClick = { toggleTheme } >Change </Button> 
+            <ThemeProvider >
               <FunctionContextComponent />
               <ClassContextComponent/>
-
             </ThemeProvider>
           </>
         } />

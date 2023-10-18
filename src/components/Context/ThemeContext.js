@@ -2,8 +2,17 @@ import React, { useContext, useState } from 'react';
 
 // shortcut RSF
 
-const ThemeContext = React.ThemeContext()
+const ThemeContext = React.createContext()
 const ThemeUpdateContext = React.createContext()
+
+// creating custom hook
+export function useTheme() {
+    return useContext(ThemeContext)
+}
+
+export function useThemeUpdate() {
+    return useContext(ThemeUpdateContext)
+}
 
 // giving access 
 export default function ThemeProvider( { children } ) {

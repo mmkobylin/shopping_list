@@ -6,7 +6,7 @@ import FunctionContextComponent from './components/Context/FunctionContextCompon
 import ClassContextComponent from './components/Context/ClassContextComponent';
 import React, { useState } from 'react'; 
 import { Button } from "react-bootstrap";
-
+import ThemeProvider from "./components/Context/ThemeContext"
 
 export const ThemeContext = React.createContext(); 
 
@@ -29,12 +29,12 @@ function App() {
         <Route path="/context" element ={
           <>
           {/* accessible to all */}
-            <ThemeContext.Provider value = { darkTheme } >
+            <ThemeProvider value = { darkTheme } >
               <Button onClick = { toggleTheme } >Change </Button> 
               <FunctionContextComponent />
               <ClassContextComponent/>
 
-            </ThemeContext.Provider>
+            </ThemeProvider>
           </>
         } />
       </Routes>

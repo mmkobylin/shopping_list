@@ -1,7 +1,4 @@
-// things to do: 
-// FIX THE OVERUSING OF THE CODE
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Row from 'react-bootstrap/Row';
 import { v4 as uuidv4 } from 'uuid';
 import { FirstRow } from './FirstRow';
@@ -9,31 +6,15 @@ import InputTemplate from './InputTemplate';
 import { Item } from './Item';
 import { Value } from './Value';
 import { ButtonItem } from './ButtonTemplate';
-import useSessionStorage, { getSavedValue } from './useSessionStorage';
-
-function getItemsList() { 
-
-    // used to get info from useEffect
-    // now we will use the getSavedValue
-    const itemsList = sessionStorage.getItem('item_list'); 
-    const listSaved = sessionStorage.getItem('items_saved'); 
-
-    if (!itemsList || !listSaved) { 
-        return []; 
-    }
-
-    return JSON.parse( itemsList ); 
-}
+import useSessionStorage from './useSessionStorage';
 
 export const ShoppingList = () => {
 
-    //array to store information - based on the value of the 'saved' 
-    const [ saved, setSaved ] = useState( false ); 
-
-    const [ list, setList ] = useState(getItemsList) 
+    //array to store information in the 
+    const [ list, setList ] = useSessionStorage('list', []) 
 
     // something here is changing 
-    const [ budget, setBudget ] = useState('');
+    const [ budget, setBudget ] = useSessionStorage('budget', '');
 
     const addBudget = number => { 
         // updating the budget, while moving the 0
@@ -51,16 +32,6 @@ export const ShoppingList = () => {
     const addItem = item => {
         setList( [ ...list, { id: uuidv4(), name: item, purchased: false, price: fetchPrice() } ] )
     }
-    
-    // fnction and dependency array using local storage API 
-    useEffect( () => { 
-        // first item is a key, second is a value 
-        sessionStorage.setItem('item_list', JSON.stringify( list ) )
-    }, [ list ] )
-
-    useEffect( () => {
-        sessionStorage.setItem('items_saved', JSON.stringify( saved ) ) 
-    }, [ saved ] )
 
     //removing the item 
     const removeItem = id => {
@@ -77,11 +48,6 @@ export const ShoppingList = () => {
         // randomize price 
         return ( Math.random() * 5 ).toFixed(2); 
     };
-    // trick is to make the list kept only when that info is provided: 
-    const handleSave = () => {
-        setSaved(true); 
-        console.log('saved' + saved)
-    }
 
   return (
     <>
@@ -106,8 +72,7 @@ export const ShoppingList = () => {
         </Row>
 
         <div className="btncontainer p-2 m-2" > 
-            <ButtonItem handleFunction = { handleSave } label = { 'Save' } theme = { 'info' } /> 
-            <ButtonItem handleFunction = {  () => { setList([]) } } label = { 'Clean' } theme = { 'danger' } /> 
+            <ButtonItem handleFunction = {  () => { setList([]) && setBudget('') } } label = { 'Clean' } theme = { 'danger' } /> 
         </div>
     </>
   )

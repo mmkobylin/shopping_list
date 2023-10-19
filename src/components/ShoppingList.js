@@ -1,6 +1,3 @@
-// things to do: 
-// FIX THE OVERUSING OF THE CODE
-
 import React, { useEffect, useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import { v4 as uuidv4 } from 'uuid';
@@ -9,29 +6,15 @@ import InputTemplate from './InputTemplate';
 import { Item } from './Item';
 import { Value } from './Value';
 import { ButtonItem } from './ButtonTemplate';
-
-function getItemsList() { 
-
-    // getting info from useEffect - sessionStorage is affecting only THAT SESSION 
-    const itemsList = sessionStorage.getItem('item_list'); 
-    const listSaved = sessionStorage.getItem('items_saved'); 
-
-    if (!itemsList || !listSaved) { 
-        return []; 
-    }
-
-    return JSON.parse( itemsList ); 
-}
+import useSessionStorage from './useSessionStorage';
 
 export const ShoppingList = () => {
 
-    //array to store information - based on the value of the 'saved' 
-    const [ saved, setSaved ] = useState( false ); 
-
-    const [ list, setList ] = useState(getItemsList) 
+    // key and value - empty array 
+    const [ list, setList ] = useSessionStorage('list', [])
 
     // something here is changing 
-    const [ budget, setBudget ] = useState('');
+    const [ budget, setBudget ] = useSessionStorage('budget', 0);
 
     const addBudget = number => { 
         // updating the budget, while moving the 0
@@ -56,10 +39,6 @@ export const ShoppingList = () => {
         sessionStorage.setItem('item_list', JSON.stringify( list ) )
     }, [ list ] )
 
-    useEffect( () => {
-        sessionStorage.setItem('items_saved', JSON.stringify( saved ) ) 
-    }, [ saved ] )
-
     //removing the item 
     const removeItem = id => {
         setList( list.filter ( item => item.id === id ? !item : item ) )
@@ -75,11 +54,6 @@ export const ShoppingList = () => {
         // randomize price 
         return ( Math.random() * 5 ).toFixed(2); 
     };
-    // trick is to make the list kept only when that info is provided: 
-    const handleSave = () => {
-        setSaved(true); 
-        console.log('saved' + saved)
-    }
 
   return (
     <>
@@ -104,7 +78,7 @@ export const ShoppingList = () => {
         </Row>
 
         <div className="btncontainer p-2 m-2" > 
-            <ButtonItem handleFunction = { handleSave } label = { 'Save' } theme = { 'info' } /> 
+            <ButtonItem handleFunction = { () => setBudget(0) } label = { 'Scrap Budget' } theme = { 'info' } /> 
             <ButtonItem handleFunction = {  () => { setList([]) } } label = { 'Clean' } theme = { 'danger' } /> 
         </div>
     </>

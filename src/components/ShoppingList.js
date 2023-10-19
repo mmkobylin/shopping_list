@@ -15,8 +15,8 @@ function getItemsList() {
 
     // used to get info from useEffect
     // now we will use the getSavedValue
-    const itemsList = getSavedValue('item_list'); 
-    const listSaved = getSavedValue('items_saved'); 
+    const itemsList = sessionStorage.getItem('item_list'); 
+    const listSaved = sessionStorage.getItem('items_saved'); 
 
     if (!itemsList || !listSaved) { 
         return []; 

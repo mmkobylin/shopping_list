@@ -3,19 +3,22 @@ import { useState, useEffect } from 'react'
 // we need to pass the value 
 function getValue(key, initialVal) {
 
-  // if there is no initial or if it is empty, just return empty: 
-  if (!initialVal) { 
-    return []; 
-  }
-
   // this is where we get the original name: 
-  const savedValue = JSON.parse(sessionStorage.getItem(key))
+  const savedValue = JSON.parse(sessionStorage.getItem(key)); 
 
-  console.log( 'savedVal', savedValue ); 
-
+  console.log('savedValue', savedValue);
+  // if thats true and something was found: 
   if ( savedValue ) {
     return savedValue; 
   }
+
+  console.log('initialVal', initialVal);
+
+  // if nothing changed -it was breaking because first - 
+  //empty array was never returned 
+  if ( initialVal instanceof Function) return initialVal();
+
+  return initialVal; 
 }
 
 // we need to pass the initial value, and the key:  
